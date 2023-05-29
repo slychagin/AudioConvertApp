@@ -32,15 +32,15 @@ API that convert .wav files to .mp3
 #### Пример запроса к POST и GET API сервиса в документации Swagger:
 POST запрос к API:
 
-![post](https://github.com/slychagin/QuizApp/blob/master/demo_gifs/POST%20request.gif)
+[post](https://github.com/slychagin/QuizApp/blob/master/demo_gifs/POST%20request.gif)
 
 Проверяем базу данных в pgadmin:
 
-![check db](https://github.com/slychagin/QuizApp/blob/master/demo_gifs/check%20db.gif)
+[check db](https://github.com/slychagin/QuizApp/blob/master/demo_gifs/check%20db.gif)
 
 Аутентификация пользователя:
 
-![auth](https://github.com/slychagin/QuizApp/blob/master/demo_gifs/Authentication.gif)
+[auth](https://github.com/slychagin/QuizApp/blob/master/demo_gifs/Authentication.gif)
 
 #
 #### Инструкция по настройке и запуску приложения:
@@ -56,17 +56,17 @@ POST запрос к API:
 - в документации вы можете попробовать зарегистрировать пользователя, залогиниться, выполнить POST запрос к API согласно примерам выше (аутентификация добавлена, но для ускорения процесса, чтобы не надо было логиниться, отключена. При необходимости решается раскомментированием одной строчки в коде);
 - для работы с базой данных в удобном интерфейcе Pgadmin4 необходимо зайти по адресу `http://localhost:5050`, аутентифицироваться введя почту `quiz@quiz.com` и пароль `quiz_777`:
 
-![pgadmin_auth](https://github.com/slychagin/QuizApp/blob/master/demo_gifs/pgadmin_auth.jpg)
+[pgadmin_auth](https://github.com/slychagin/QuizApp/blob/master/demo_gifs/pgadmin_auth.jpg)
 - далее создайте новый сервер:
 
-![pgadmin_create_server](https://github.com/slychagin/QuizApp/blob/master/demo_gifs/pgadmin_create_server.jpg)
+[pgadmin_create_server](https://github.com/slychagin/QuizApp/blob/master/demo_gifs/pgadmin_create_server.jpg)
 - в открывшемся окне во вкладке General введите любое имя для сервера:
 
-![pgadmin_enter_name](https://github.com/slychagin/QuizApp/blob/master/demo_gifs/pgadmin_enter_name.jpg)
+[pgadmin_enter_name](https://github.com/slychagin/QuizApp/blob/master/demo_gifs/pgadmin_enter_name.jpg)
 - в том же окне во вклдаке Connection заполните Host name/address=postgres_container, Port=5432, Maintenance database=postgres, Username=postgres, Password=postgres и нажмите Save, чтобы подключиться к серверу. Как вариант, в Host name/address можно ввести не имя контейнера Postgres, а IP адрес. Для чего в командной строке выполните команды `docker ps` -> скопируйте ID или имя контейнера Postgres -> `docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' container_name_or_id`:
 
-![pgadmin_connection](https://github.com/slychagin/QuizApp/blob/master/demo_gifs/pgadmin_connection.jpg)
+[pgadmin_connection](https://github.com/slychagin/QuizApp/blob/master/demo_gifs/pgadmin_connection.jpg)
 - чтобы просмотреть, добавленные в базу данных записи выполните запрос `SELECT * FROM questions;`
 
-![pgadmin_get_data](https://github.com/slychagin/QuizApp/blob/master/demo_gifs/pgadmin_get_data.jpg)
+[pgadmin_get_data](https://github.com/slychagin/QuizApp/blob/master/demo_gifs/pgadmin_get_data.jpg)
 
