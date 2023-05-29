@@ -29,22 +29,22 @@ API that convert .wav files to .mp3
 - протестировано с помощью pytest.
 
 #
-#### Пример запроса к POST и GET API сервиса в документации Swagger:
+#### Примеры запросов POST и GET к API сервиса в документации Swagger:
 Регистрация нового пользователя (POST):
 
-[post](https://github.com/slychagin/QuizApp/blob/master/demo_gifs/POST%20request.gif)
+[post](https://github.com/slychagin/AudioConvertApp/blob/master/demo_gifs/POST%20request.gif)
 
 Конвертирование аудиозаписи (POST):
 
-[check db](https://github.com/slychagin/QuizApp/blob/master/demo_gifs/check%20db.gif)
+[check db](https://github.com/slychagin/AudioConvertApp/blob/master/demo_gifs/check%20db.gif)
 
 Загрузка аудиозаписи по ссылке, полученной при добавлении записи (GET):
 
-[auth](https://github.com/slychagin/QuizApp/blob/master/demo_gifs/Authentication.gif)
+[auth](https://github.com/slychagin/AudioConvertApp/blob/master/demo_gifs/Authentication.gif)
 
 Проверяем базу данных в pgadmin:
 
-[auth](https://github.com/slychagin/QuizApp/blob/master/demo_gifs/Authentication.gif)
+[auth](https://github.com/slychagin/AudioConvertApp/blob/master/demo_gifs/Authentication.gif)
 
 #
 #### Инструкция по настройке и запуску приложения:
