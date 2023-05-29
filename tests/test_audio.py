@@ -1,5 +1,6 @@
+import mimetypes
+
 import pytest
-import magic
 from httpx import AsyncClient
 from pydub import AudioSegment
 from sqlalchemy import select, insert
@@ -38,10 +39,11 @@ async def get_created_user():
 async def test_convert_wav_to_mp3():
     """Test converting .wav file to .mp3"""
     AudioSegment.from_file('song.wav', format='wav').export('song.mp3', format='mp3')
-    mime = magic.Magic(mime=True)
+    wav_mime_type = mimetypes.guess_type('song.wav')
+    mp3_mime_type = mimetypes.guess_type('song.mp3')
 
-    assert mime.from_file('song.wav') == 'audio/x-wav'
-    assert mime.from_file('song.mp3') == 'audio/mpeg'
+    assert wav_mime_type[0] == 'audio/wav'
+    assert mp3_mime_type[0] == 'audio/mpeg'
 
 
 async def test_create_file_name():
