@@ -1,0 +1,48 @@
+### Installs
+pip install fastapi [all]
+pip install sqlalchemy alembic psycopg2
+pip install fastapi-users[sqlalchemy]
+pip install asyncpg
+pip install pytest pytest-asyncio
+pip install python-multipart
+
+### for converting
+pip install pydub
+pip install ffmpeg-downloader
+ffdl install --add-path
+Опция --add-path добавляет установленную папку FFmpeg
+к системному пути пользователя. Снова откройте окно Python,
+и для вашей программы будут доступны как ffmpeg, так и ffprobe.
+
+### Run uvicorn with restart app after making changes
+uvicorn src.main:app --reload
+
+### Init migrations
+alembic init migrations
+
+### Make migrations
+alembic revision --autogenerate -m "Database create"
+
+### Migrate
+alembic upgrade ("revision number" or "head")
+
+### Run tests
+pytest -v -s tests/
+
+### Run Celery
+celery -A src.tasks.tasks:celery worker --loglevel=INFO --pool=solo
+
+### Run Flower
+celery -A src.tasks.tasks:celery flower
+
+### Build Docker image
+docker build . -t quiz_fastapi_app:latest
+
+### Run container
+docker run -d -p 7326:8000 quiz_fastapi_app
+
+### Build docker-compose
+docker compose build
+
+### Run docker-compose
+docker compose up
