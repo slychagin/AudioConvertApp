@@ -63,9 +63,9 @@ API that convert .wav files to .mp3
 - в открывшемся окне во вкладке General введите любое имя для сервера:
 
 ![pgadmin_enter_name](https://github.com/slychagin/AudioConvertApp/blob/master/demo_gifs/pgadmin_enter_name.jpg)
-- в том же окне во вклдаке Connection заполните Host name/address=postgres_container, Port=5432, Maintenance database=postgres, Username=postgres, Password=postgres и нажмите Save, чтобы подключиться к серверу. Как вариант, в Host name/address можно ввести не имя контейнера Postgres, а IP адрес. Для чего в командной строке выполните команды `docker ps` -> скопируйте ID или имя контейнера Postgres -> `docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' container_name_or_id`:
+- в том же окне во вклдаке Connection заполните Host name/address=pg_container, Port=5432, Maintenance database=postgres, Username=postgres, Password=postgres и нажмите Save, чтобы подключиться к серверу. Как вариант, в Host name/address можно ввести не имя контейнера Postgres, а IP адрес. Для чего в командной строке выполните команды `docker ps` -> скопируйте ID или имя контейнера Postgres -> `docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' container_name_or_id`:
 
 ![pgadmin_connection](https://github.com/slychagin/AudioConvertApp/blob/master/demo_gifs/pgadmin_connection.jpg)
-- чтобы просмотреть, добавленные в базу данных записи выполните запрос `SELECT * FROM questions;`
+- чтобы просмотреть, добавленные в базу данных записи выполните запрос `SELECT * FROM audios;`
 
 ![pgadmin_get_data](https://github.com/slychagin/AudioConvertApp/blob/master/demo_gifs/pgadmin_get_data.jpg)
