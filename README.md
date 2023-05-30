@@ -30,15 +30,15 @@ API that convert .wav files to .mp3
 
 #
 #### Примеры запросов POST и GET к API сервиса в документации Swagger:
-**Регистрация нового пользователя (POST):**
+**_Регистрация нового пользователя (POST):_**
 
 ![create_user](https://github.com/slychagin/AudioConvertApp/blob/master/demo_gifs/create_user.gif)
 
-Конвертирование аудиозаписи (POST):
+**_Конвертирование аудиозаписи (POST):_**
 
 ![post_audio](https://github.com/slychagin/AudioConvertApp/blob/master/demo_gifs/post_audio.gif)
 
-Загрузка аудиозаписи по ссылке, полученной при добавлении записи (GET):
+**_Загрузка аудиозаписи по ссылке, полученной при добавлении записи (GET):_**
 
 ![get_audio](https://github.com/slychagin/AudioConvertApp/blob/master/demo_gifs/get_audio.gif)
 
