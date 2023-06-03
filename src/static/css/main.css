@@ -170,7 +170,7 @@ iframe {
   display: -webkit-flex;
   display: -moz-box;
   display: -ms-flexbox;
-  display: flex;
+  display: inline-grid;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
@@ -397,7 +397,7 @@ iframe {
   display: -webkit-flex;
   display: -moz-box;
   display: -ms-flexbox;
-  display: flex;
+  display: contents;
   flex-wrap: wrap;
 }
 
@@ -455,7 +455,7 @@ iframe {
 }
 
 .custom-btn-container {
-    width: 53%;
+    width: 100%;
 }
 
 
@@ -533,6 +533,7 @@ iframe {
   .wrap-login100 {
     padding-left: 60px;
     padding-right: 60px;
+    display: contents;
   }
 
 @media (max-width: 576px) {
