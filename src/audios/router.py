@@ -108,9 +108,9 @@ async def upload_file(
             await session.commit()
 
             # Generate a link to download the file
-            link = str(request.url).split('?')[0]
+            link = str(request.base_url).split('?')[0]
             params = f'?id={record_id}&user={user_id}'
-            download_link = link + params
+            download_link = link + 'record/' + params
             return {
                 'record_id': record_id,
                 'user_id': user_id,
@@ -120,7 +120,7 @@ async def upload_file(
             raise HTTPException(status_code=500, detail={
                 'status': 'error',
                 'data': None,
-                'details': None
+                'details': 'Sorry, something went wrong.'
             })
     else:
         raise HTTPException(

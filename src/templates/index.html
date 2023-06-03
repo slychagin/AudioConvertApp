@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>AudioConverter</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--===============================================================================================-->
+	<link rel="icon" type="image/png" href="{{ url_for('static', path='images/icons/favicon.ico') }}"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', path='vendor/bootstrap/css/bootstrap.min.css') }}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', path='fonts/font-awesome-4.7.0/css/font-awesome.min.css') }}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', path='fonts/Linearicons-Free-v1.0.0/icon-font.min.css') }}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', path='vendor/animate/animate.css') }}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', path='vendor/css-hamburgers/hamburgers.min.css') }}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', path='vendor/animsition/css/animsition.min.css') }}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', path='vendor/select2/select2.min.css') }}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', path='vendor/daterangepicker/daterangepicker.css') }}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', path='css/util.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', path='css/main.css') }}">
+<!--===============================================================================================-->
+
+
+<script>
+	document.addEventListener("DOMContentLoaded", (event) => {
+	  document.getElementById("myForm").addEventListener("submit", function (e) {
+		e.preventDefault(); // Cancel the default action
+		submitForm();
+	  });
+	});
+</script>
+
+</head>
+<body>
+	<div class="limiter">
+
+		<div class="container-login100" style="background-image: url({{ url_for('static', path='images/bg-01.jpg') }})">
+
+			<div class="container-login100-form-btn custom-btn-container">
+				<button class="login100-form-btn" type="button">
+					Register New User
+				</button>
+			</div>
+			<div class="container-login100-form-btn custom-btn-container">
+				<button class="login100-form-btn" type="button">
+					Download mp3 record
+				</button>
+			</div>
+
+
+			<div class="wrap-login100 p-l-110 p-r-110 p-t-62 p-b-33">
+
+				<form id="myForm" action="upload/" class="login100-form validate-form flex-sb flex-w" method="POST" enctype="multipart/form-data">
+					<span class="login100-form-title p-b-53">
+						Convert wav to mp3
+					</span>
+
+					<div class="build-in-alerts" id="validationAlert"></div>
+
+					<div class="p-t-31 p-b-9">
+						<span class="txt1">
+							User ID
+						</span>
+					</div>
+					<div class="wrap-input100 validate-input" data-validate = "User ID is required">
+						<input class="input100" type="text" name="user_id" id="userid">
+						<span class="focus-input100"></span>
+					</div>
+
+					<div class="p-t-31 p-b-9">
+						<span class="txt1">
+							User UUID token
+						</span>
+					</div>
+
+					<div class="wrap-input100 validate-input" data-validate = "User UUID token is required">
+						<input class="input100" type="text" name="uuid_token" id="uuid">
+						<span class="focus-input100"></span>
+					</div>
+
+					<div class="p-t-13 p-b-9">
+						<span class="txt1">
+							Select wav file
+						</span>
+					</div>
+
+					<div class="validate-input" data-validate = "Select file is required">
+						<input class="input100" type="file" name="file" id="fileUpload">
+					</div>
+
+					<div class="container-login100-form-btn m-t-17">
+						<button class="login100-form-btn" type="submit">
+							Convert
+						</button>
+					</div>
+
+					<div class="result-message" id="result"></div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<div id="dropDownSelect1"></div>
+
+<!--===============================================================================================-->
+	<script src="{{ url_for('static', path='vendor/jquery/jquery-3.2.1.min.js') }}"></script>
+<!--===============================================================================================-->
+	<script src="{{ url_for('static', path='vendor/animsition/js/animsition.min.js') }}"></script>
+<!--===============================================================================================-->
+	<script src="{{ url_for('static', path='vendor/bootstrap/js/popper.js') }}"></script>
+	<script src="{{ url_for('static', path='vendor/bootstrap/js/bootstrap.min.js') }}"></script>
+<!--===============================================================================================-->
+	<script src="{{ url_for('static', path='vendor/select2/select2.min.js') }}"></script>
+<!--===============================================================================================-->
+	<script src="{{ url_for('static', path='vendor/daterangepicker/moment.min.js') }}"></script>
+	<script src="{{ url_for('static', path='vendor/daterangepicker/daterangepicker.js') }}"></script>
+<!--===============================================================================================-->
+	<script src="{{ url_for('static', path='vendor/countdowntime/countdowntime.js') }}"></script>
+<!--===============================================================================================-->
+	<script src="{{ url_for('static', path='js/main.js') }}"></script>
+
+
+
+<script>
+ function submitForm() {
+	 let formElement = document.getElementById('myForm');
+	 let data = new FormData(formElement);
+
+	 document.getElementById('validationAlert').innerHTML = '';
+	 document.getElementById('result').innerHTML = '';
+
+	 fetch('upload', {
+		   method: 'POST',
+		   body: data,
+		 })
+		 .then(response => response.json())
+		 .then(function(response){
+		 	let alert = '';
+		 	let message;
+
+		 	if (Object.prototype.toString.call(response.detail) === '[object Array]') {
+				for (let i of response.detail) {
+					message = '* ' + i.loc[1] + ' - ' + i.msg + '!' + '<br>';
+					alert = alert + message;
+		 		}
+		 		document.getElementById('validationAlert').innerHTML = alert;
+			} else if (response.detail) {
+				document.getElementById('validationAlert').innerHTML = response.detail;
+			} else {
+				message = 'Audio record converted to mp3 format!<br><br>' +
+					`Record ID:  ${response.record_id}<br>` + `User ID:  ${response.user_id}<br>` +
+					'Download link:  ' + '<u><a href="'+response.download_link+'" style="color: blue">'+response.download_link+'</a></u>';
+				document.getElementById('result').innerHTML = message;
+				document.getElementById("myForm").reset();
+			}
+		 })
+		 .catch(error => {
+		 	console.log(error);
+		 })
+ }
+</script>
+
+</body>
+</html>
