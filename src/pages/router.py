@@ -13,7 +13,8 @@ from fastapi.templating import Jinja2Templates
 from sqlalchemy.ext.asyncio import AsyncSession
 from starlette.responses import HTMLResponse, JSONResponse
 
-from src.audios.router import upload_file
+from src.audios.router import upload_file, download_file
+from src.auth.schemas import UserCreate
 from src.database import get_async_session
 
 router = APIRouter(
@@ -39,7 +40,7 @@ async def post_index_template(
         file: UploadFile = File(...),
         session: AsyncSession = Depends(get_async_session)
 ):
-    """Return index template"""
+    """Return converted audio data"""
     try:
         uuid_token_hex = uuid.UUID(uuid_token)
         result = await upload_file(
@@ -56,3 +57,49 @@ async def post_index_template(
                         '<br>f4c74013-9e09-41de-8681-08546a2ed6bf'
         )
     return JSONResponse(content=result)
+
+
+@router.get('/download', response_class=HTMLResponse)
+def get_download_template(request: Request):
+    """Return download template"""
+    return templates.TemplateResponse('download.html', {'request': request})
+
+
+@router.post('/download')
+async def download_audio(
+        request: Request,
+        record_id: int = Form(ge=1),
+        user_id: int = Form(ge=1),
+        session: AsyncSession = Depends(get_async_session)
+):
+    """Download audio from database"""
+    audio_file = await download_file(
+        record_id=record_id,
+        user_id=user_id,
+        session=session
+    )
+    if audio_file:
+        link = str(request.base_url).split('?')[0]
+        params = f'?id={record_id}&user={user_id}'
+        download_link = link + 'record/' + params
+        return download_link
+
+
+@router.get('/register', response_class=HTMLResponse)
+def get_register_template(request: Request):
+    """Return registration template"""
+    return templates.TemplateResponse('register.html', {'request': request})
+
+
+@router.post('/register')
+async def register_user(
+        request: Request,
+        user_data=Depends(UserCreate),
+        email: str = Form(...),
+        password: str = Form(...),
+        username: str = File(...),
+        session: AsyncSession = Depends(get_async_session)
+):
+    """Register new user in the database"""
+    print(user_data)
+    print(email, password, username)
