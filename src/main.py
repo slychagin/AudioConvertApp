@@ -28,5 +28,3 @@ app.include_router(
 
 app.include_router(router_audios)
 app.include_router(router_pages)
-
-templates = Jinja2Templates(directory='src/templates')
