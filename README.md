@@ -20,6 +20,7 @@ API that convert .wav files to .mp3
 - возвращает URL для скачивания аудиозаписи вида http://host:port/record?id=id_записи&user=id_пользователя.
 3. Доступ к аудиозаписи (GET):
 - предоставляет возможность скачать аудиозапись по вышеуказанной ссылке.
+4. Кроме стандартной документации Swagger, так же реализован фронтенд.
 
 #
 #### Что использовано для создания API:
@@ -29,7 +30,22 @@ API that convert .wav files to .mp3
 - протестировано с помощью pytest.
 
 #
-#### Примеры запросов POST и GET к API сервиса в документации Swagger:
+#### Примеры запросов POST и GET к API сервиса (фронтенд):
+**_Регистрация нового пользователя (POST):_**
+
+![front_create_user](https://github.com/slychagin/AudioConvertApp/blob/master/demo_gifs/front_register.gif)
+
+**_Конвертирование аудиозаписи (POST):_**
+
+![front_post_audio](https://github.com/slychagin/AudioConvertApp/blob/master/demo_gifs/front_conver.gif)
+
+**_Загрузка аудиозаписи по ссылке, полученной при добавлении записи (GET):_**
+
+![front_get_audio](https://github.com/slychagin/AudioConvertApp/blob/master/demo_gifs/front_download.gif)
+
+
+#
+#### Примеры запросов POST и GET к API сервиса (документация Swagger):
 **_Регистрация нового пользователя (POST):_**
 
 ![create_user](https://github.com/slychagin/AudioConvertApp/blob/master/demo_gifs/create_user.gif)
