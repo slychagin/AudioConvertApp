@@ -458,6 +458,10 @@ iframe {
     width: 100%;
 }
 
+.back-btn {
+    width: 20%;
+}
+
 .download-btn {
     margin-top: 55px;
 }
@@ -526,6 +530,36 @@ iframe {
   .alert-validate::before {
     visibility: visible;
     opacity: 1;
+  }
+}
+
+/*------------------------------------------------------------------
+[ Loader Spinner ]*/
+.loader {
+  display: none;
+  top: 50%;
+  left: 50%;
+  position: absolute;
+  transform: translate(-50%, -50%);
+}
+
+.loading {
+  border: 3px solid #ccc;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  border-top-color: #aa15ea;
+  border-left-color: #aa15ea;
+  animation: spin 1s infinite ease-in;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
   }
 }
 

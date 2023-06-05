@@ -74,6 +74,11 @@
 						</button>
 					</div>
 
+					<div class="loader">
+					  <div class="loading">
+					  </div>
+					</div>
+
 					<div class="result-message" id="result"></div>
 				</form>
 			</div>
@@ -90,6 +95,7 @@
 
 	 document.getElementById('validationAlert').innerHTML = '';
 	 document.getElementById('result').innerHTML = '';
+	 document.getElementsByClassName('loader')[0].style.display = 'block';
 
 	 fetch('upload', {
 		   method: 'POST',
@@ -101,6 +107,7 @@
 		 	let message;
 
 		 	if (Object.prototype.toString.call(response.detail) === '[object Array]') {
+				document.getElementsByClassName('loader')[0].style.display = 'none';
 				for (let i of response.detail) {
 					message = '* ' + i.loc[1] + ' - ' + i.msg + '!' + '<br>';
 					alert = alert + message;
@@ -108,12 +115,15 @@
 		 		document.getElementById('validationAlert').innerHTML = alert;
 			} else if (response.detail) {
 				document.getElementById('validationAlert').innerHTML = response.detail;
+				document.getElementsByClassName('loader')[0].style.display = 'none';
 			} else {
+				document.getElementsByClassName('loader')[0].style.display = 'none';
 				message = 'Audio record converted to mp3 format!<br><br>' +
 					`Record ID:  ${response.record_id}<br>` + `User ID:  ${response.user_id}<br>` +
 					'Download link:  ' + '<u><a href="'+response.download_link+'" style="color: blue">'+response.download_link+'</a></u>';
 				document.getElementById('result').innerHTML = message;
 				document.getElementById("uploadForm").reset();
+
 			}
 		 })
 		 .catch(error => {

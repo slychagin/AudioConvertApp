@@ -23,8 +23,7 @@ from src.auth.utils import get_user_db
 from src.database import get_async_session
 
 router = APIRouter(
-    prefix='/html',
-    tags=['HTML Template']
+    tags=['HTML Templates']
 )
 
 
