@@ -98,11 +98,16 @@
 					alert = alert + message;
 		 		}
 		 		document.getElementById('validationAlert').innerHTML = alert;
-			} else if (response.detail) {
-				document.getElementById('validationAlert').innerHTML = response.detail;
+			} else if (response.user_exists_msg) {
+				document.getElementById('validationAlert').innerHTML = response.user_exists_msg;
 			} else {
-				document.getElementById('download-link').href = response;
-				document.getElementById('download-link').click();
+				message = `User ${response.username} was created!<br><br>` +
+				`User ID:  ${response.id}<br>` +
+				`User UUID token:  ${response.uuid_token}<br>` +
+				`Email:  ${response.email}<br>` +
+				`Username:  ${response.username}`;
+
+				document.getElementById('result').innerHTML = message;
 				document.getElementById("registerForm").reset();
 			}
 		 })

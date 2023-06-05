@@ -1,3 +1,4 @@
+import contextlib
 import uuid
 
 from fastapi import (
@@ -10,11 +11,15 @@ from fastapi import (
     HTTPException
 )
 from fastapi.templating import Jinja2Templates
+from fastapi_users.exceptions import UserAlreadyExists
+from pydantic import EmailStr
 from sqlalchemy.ext.asyncio import AsyncSession
 from starlette.responses import HTMLResponse, JSONResponse
 
 from src.audios.router import upload_file, download_file
+from src.auth.manager import get_user_manager
 from src.auth.schemas import UserCreate
+from src.auth.utils import get_user_db
 from src.database import get_async_session
 
 router = APIRouter(
@@ -33,7 +38,7 @@ def get_index_template(request: Request):
 
 
 @router.post('/upload')
-async def post_index_template(
+async def convert_audio_file(
         request: Request,
         user_id: int = Form(ge=1),
         uuid_token: str = Form(...),
@@ -91,15 +96,34 @@ def get_register_template(request: Request):
     return templates.TemplateResponse('register.html', {'request': request})
 
 
+get_async_session_context = contextlib.asynccontextmanager(get_async_session)
+get_user_db_context = contextlib.asynccontextmanager(get_user_db)
+get_user_manager_context = contextlib.asynccontextmanager(get_user_manager)
+
+
 @router.post('/register')
 async def register_user(
-        request: Request,
-        user_data=Depends(UserCreate),
-        email: str = Form(...),
+        email: EmailStr = Form(...),
         password: str = Form(...),
-        username: str = File(...),
-        session: AsyncSession = Depends(get_async_session)
+        username: str = File(...)
 ):
     """Register new user in the database"""
-    print(user_data)
-    print(email, password, username)
+    try:
+        async with get_async_session_context() as session:
+            async with get_user_db_context(session) as user_db:
+                async with get_user_manager_context(user_db) as user_manager:
+                    user = await user_manager.create(
+                        UserCreate(
+                            email=email, password=password, username=username
+                        )
+                    )
+                    return JSONResponse(
+                        content={
+                            'id': user.id,
+                            'email': user.email,
+                            'uuid_token': str(user.uuid_token),
+                            'username': user.username
+                        }
+                    )
+    except UserAlreadyExists:
+        return JSONResponse(content={'user_exists_msg': f'User {email} already exists'})
